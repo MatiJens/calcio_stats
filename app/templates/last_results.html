@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Last results — Serie A Stats{% endblock %}
+{% block content %}
+<h1>Last results</h1>
+<table>
+    <thead>
+        <tr><th>Date</th><th>Home</th><th>Score</th><th>Away</th></tr>
+    </thead>
+    <tbody>
+        {% for m in matches %}
+        <tr>
+            <td>{{ m.utcDate }}</td>
+            <td>{{ m.homeTeam }}</td>
+            <td>{{ m.score.home }} – {{ m.score.away }}</td>
+            <td>{{ m.awayTeam }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
