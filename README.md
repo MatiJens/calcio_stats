@@ -1,0 +1,1 @@
+This app will display results, statistics and league tables for Serie A. I’m building it to learn how to use DevOps tools in practice, whilst also combining them with my personal interests.
