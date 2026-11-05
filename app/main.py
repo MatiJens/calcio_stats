@@ -3,13 +3,16 @@ from pathlib import Path
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
+from prometheus_fastapi_instrumentator import Instrumentator
 
 from app import mock_data
 
 BASE_DIR = Path(__file__).resolve().parent
 
-app = FastAPI(title="Serie A Stats")
+app = FastAPI(title="Serie A Stats", version="0.1.0")
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
+
+Instrumentator().instrument(app).expose(app, endpoint="/metrics", include_in_schema=False)
 
 
 @app.get("/", response_class=HTMLResponse)
