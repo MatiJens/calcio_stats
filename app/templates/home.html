@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Home — Serie A Stats{% endblock %}
 {% block content %}
+{% if competition %}
 <h1>{{ competition.name }}</h1>
 <p>Area: {{ competition.area.name }}</p>
 <p>Season: {{ competition.currentSeason.startDate }} – {{ competition.currentSeason.endDate }}</p>
+{% else %}
+<p>Competition data unavailable.</p>
+{% endif %}
 <p>Use the navigation above to view the league table or the latest results.</p>
 {% endblock %}

@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from prometheus_fastapi_instrumentator import Instrumentator
 
-from app import mock_data
+from app import api
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -17,7 +17,7 @@ Instrumentator().instrument(app).expose(app, endpoint="/metrics", include_in_sch
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    competition = mock_data.get_competition()
+    competition = api.get_competition()
     return templates.TemplateResponse(
         "home.html",
         {"request": request, "competition": competition},
@@ -26,7 +26,7 @@ def home(request: Request):
 
 @app.get("/table", response_class=HTMLResponse)
 def table(request: Request):
-    standings = mock_data.get_standings()
+    standings = api.get_standings()
     return templates.TemplateResponse(
         "table.html",
         {"request": request, "standings": standings},
@@ -35,7 +35,7 @@ def table(request: Request):
 
 @app.get("/last_results", response_class=HTMLResponse)
 def last_results(request: Request):
-    matches = mock_data.get_last_results()
+    matches = api.get_last_results()
     return templates.TemplateResponse(
         "last_results.html",
         {"request": request, "matches": matches},
