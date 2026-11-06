@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calciostats-deployment
+  labels:
+    app: calciostats
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: calciostats
+  template:
+    metadata:
+      labels:
+        app: calciostats
+    spec:
+      containers:
+      - name: calciostats
+        image: calcio-stats:1.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+        env:
+        - name: FOOTBALL_DATA_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: calciostats-secret
+              key: football_api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: calciostats-service
+spec:
+  selector:
+    app: calciostats
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+      nodePort: 30000

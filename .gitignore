@@ -2,3 +2,5 @@
 .dockerignore
 .venv
 CONTEXT.md
+k8s/calcio-secret.yaml
+kubectl
